@@ -80,6 +80,6 @@ precmd() {
 esac
 
 alias ll='ls -l'
-alias nave=~/nave/nave.sh
+alias nave=~/.settings/nave/nave.sh
 
 
