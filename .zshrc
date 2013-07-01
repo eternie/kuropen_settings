@@ -80,6 +80,6 @@ precmd() {
 esac
 
 alias ll='ls -l'
-alias nave=~/.settings/nave/nave.sh
-export PATH=/usr/local/vim/bin:$PATH
+#alias nave=~/.settings/nave/nave.sh
+#export PATH=/usr/local/vim/bin:$PATH
 
