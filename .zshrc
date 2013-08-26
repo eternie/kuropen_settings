@@ -81,5 +81,5 @@ esac
 
 alias ll='ls -l'
 alias nave=~/.settings/nave/nave.sh
-export PATH=/usr/local/vim/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$(echo $PATH | sed 's!/usr/local/bin:!!' | sed 's!/usr/local/sbin:!!')
 
