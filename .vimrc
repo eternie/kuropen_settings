@@ -1,7 +1,7 @@
 "新しい行のインデントを現在行と同じにする
 set autoindent
 "ファイル保存ダイアログの初期ディレクトリをバッファファイル位置に設定
-set browsedir=buffer 
+set browsedir=buffer
 "Vi互換をオフ
 set nocompatible
 "タブの代わりに空白文字を挿入する
@@ -51,22 +51,54 @@ autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
 autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 
+"indent
+filetype plugin indent on
+
+"文法チェック (PHP)
+function MakePHP()
+    set makeprg=php\ -l\ %
+    set errorformat=%m\ in \ %f\ on\ line\ %l
+    make
+endfunction
+command PHPSyntaxCheck call MakePHP()
+
+let php_folding = 1
+
+"nodebrewはPATHにあるか？
+"（※MacVim対策）
+if ((stridx($PATH, $HOME . '/.nodebrew') < 0) && isdirectory(expand('~/.nodebrew')))
+    let $PATH=$HOME . '/.nodebrew/current/bin:' . $PATH
+endif
+"
+"タブインデントをスペースインデントに変換するコマンド
+command ReplaceTabs %s/\t/    /g
+command ReplaceSpaceIndents %s/    /\t/g
+
 "追加モジュール設定
-if isdirectory(expand('~/.vim/bundle'))
+if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     filetype plugin indent off
-     
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim
       call neobundle#rc(expand('~/.vim/bundle'))
     endif
 
     "管理モジュール一覧
-    NeoBundle 'git://github.com/Shougo/vimfiler.git'
-    NeoBundle 'git://github.com/Shougo/vimshell.git'
-    NeoBundle 'git://github.com/Shougo/vimproc.git'
-    NeoBundle 'git://github.com/Shougo/unite.vim.git'
-    NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-    
+    NeoBundle 'tomasr/molokai'
+    NeoBundle 'tpope/vim-repeat'
+    NeoBundle 'tpope/vim-surround'
+    NeoBundle 'Shougo/vimfiler.git'
+    NeoBundle 'Shougo/vimshell.git'
+    NeoBundle 'Shougo/vimproc.git'
+    NeoBundle 'Shougo/unite.vim.git'
+    NeoBundle 'Shougo/neocomplcache.git'
+    NeoBundle 'tpope/vim-fugitive'
+    NeoBundle 'bling/vim-airline'
+    NeoBundle 'kchmck/vim-coffee-script.git'
+    NeoBundle 'claco/jasmine.vim'
+    NeoBundle 'basyura/twibill.vim'
+    NeoBundle 'basyura/TweetVim'
+    NeoBundle 'tyru/open-browser.vim'
+
     "Filer設定
     let g:vimfiler_as_default_explorer = 1 "標準lsを使用しない
     let g:vimfiler_safe_mode_by_default = 0 "セーフモード無効
@@ -96,22 +128,45 @@ if isdirectory(expand('~/.vim/bundle'))
             autocmd BufRead *.php\|*.ctp\|*.tpl :call PHPCompleteSettings()
         endif
     endif
+
+    "airline
+    let g:airline_theme = 'molokai'
+    let g:airline#extensions#tagbar#enabled = 1
+    let g:airline#extensions#syntastic#enabled = 1
+    let g:airline#extensions#branch#enabled = 1
+    let g:airline_linecolumn_prefix = '¶'
+    let g:airline_branch_prefix = '⎇ '
+
+    "Tweetvim
+    let g:tweetvim_tweet_per_page = 60
+    let g:tweetvim_display_source = 1
+    let g:tweetvim_display_time = 1
+    let g:tweetvim_say_insert_account = 1
+    let g:tweetvim_async_post = 1
+    let g:tweetvim_open_say_cmd = 'split'
+    let g:tweetvim_config_dir = expand('~/.vim/tweetvim')
+    let g:tweetvim_display_username = 1
+else
+    echoerr 'NeoBundle is not installed. Please install it into $HOME/.vim/bundle/neobundle.vim'
+
 endif
 
 "シンタックスハイライト有効
 syntax on
 
-"文法チェック (PHP)
-function MakePHP()
-    set makeprg=php\ -l\ %
-    set errorformat=%m\ in \ %f\ on\ line\ %l
-    make
+"カラースキーム
+"MacVimで起動時に反転してしまう事象対策で関数化し
+"autocmdを使ってGUI起動時に色設定を行う
+"Reference: http://d.hatena.ne.jp/yayugu/20110918/1316363220
+function SetColorScheme()
+    set background=dark
+    colorscheme molokai
 endfunction
-command PHPSyntaxCheck call MakePHP()
+augroup guicolorscheme
+    autocmd!
+    execute 'autocmd GUIEnter * call SetColorScheme()'
+augroup END
+call SetColorScheme()
 
-let php_folding = 1
 
-
-"タブインデントをスペースインデントに変換するコマンド
-command ReplaceTabs %s/\t/    /g
 
