@@ -15,7 +15,7 @@ setopt notify
 setopt equals
 
 autoload -Uz compinit
-compinit
+compinit -u #prevent errors on cygwin
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
