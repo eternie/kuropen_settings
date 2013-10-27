@@ -89,6 +89,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundle 'basyura/twibill.vim'
     NeoBundle 'basyura/TweetVim'
     NeoBundle 'tyru/open-browser.vim'
+    NeoBundle 'mopp/backscratcher.git'
 
     "Filer設定
     let g:vimfiler_as_default_explorer = 1 "標準lsを使用しない
@@ -172,7 +173,7 @@ let php_folding = 1
 " CoffeeScriptのコンパイラとタブの特例
 function CoffeeScriptEditInit()
     compiler coffee
-    setlocal noet
+    "setlocal noet
 endfunction
 augroup filetypedetect
     au BufRead,BufNewFile *.coffee call CoffeeScriptEditInit()
