@@ -54,15 +54,6 @@ augroup END
 "indent
 filetype plugin indent on
 
-"文法チェック (PHP)
-function MakePHP()
-    set makeprg=php\ -l\ %
-    set errorformat=%m\ in \ %f\ on\ line\ %l
-    make
-endfunction
-command PHPSyntaxCheck call MakePHP()
-
-let php_folding = 1
 
 "nodebrewはPATHにあるか？
 "（※MacVim対策）
@@ -98,6 +89,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundle 'basyura/twibill.vim'
     NeoBundle 'basyura/TweetVim'
     NeoBundle 'tyru/open-browser.vim'
+    NeoBundle 'mopp/backscratcher.git'
 
     "Filer設定
     let g:vimfiler_as_default_explorer = 1 "標準lsを使用しない
@@ -168,5 +160,23 @@ augroup guicolorscheme
 augroup END
 call SetColorScheme()
 
+"文法チェック (PHP)
+function MakePHP()
+    set makeprg=php\ -l\ %
+    set errorformat=%m\ in \ %f\ on\ line\ %l
+    make
+endfunction
+command PHPSyntaxCheck call MakePHP()
+
+let php_folding = 1
+
+" CoffeeScriptのコンパイラとタブの特例
+function CoffeeScriptEditInit()
+    compiler coffee
+    "setlocal noet
+endfunction
+augroup filetypedetect
+    au BufRead,BufNewFile *.coffee call CoffeeScriptEditInit()
+augroup END
 
 
