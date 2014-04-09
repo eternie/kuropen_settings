@@ -74,7 +74,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     endif
 
     "管理モジュール一覧
-    NeoBundle 'tomasr/molokai'
+    NeoBundle 'mopp/mopkai.vim'
     NeoBundle 'tpope/vim-repeat'
     NeoBundle 'tpope/vim-surround'
     NeoBundle 'Shougo/vimfiler.git'
@@ -90,6 +90,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundle 'basyura/TweetVim'
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'mopp/backscratcher.git'
+    NeoBundle 'mopp/tailCleaner.vim'
 
     "Filer設定
     let g:vimfiler_as_default_explorer = 1 "標準lsを使用しない
@@ -152,7 +153,7 @@ syntax on
 "Reference: http://d.hatena.ne.jp/yayugu/20110918/1316363220
 function SetColorScheme()
     set background=dark
-    colorscheme molokai
+    colorscheme mopkai
 endfunction
 augroup guicolorscheme
     autocmd!
@@ -178,5 +179,40 @@ endfunction
 augroup filetypedetect
     au BufRead,BufNewFile *.coffee call CoffeeScriptEditInit()
 augroup END
+
+" PHPStylist
+" Reference: http://blog.starbug1.com/archives/821
+if isdirectory(expand('~/.vim/phpStylist'))
+    function! s:PhpStylist()
+        execute "w"
+        normal ggdG
+        execute "0r!~/.vim/phpStylist/phpStylist %"
+        normal Gdd
+    endfunction
+    command! PhpStylist call <SID>PhpStylist()
+endif
+
+" commentout.vim http://nanasi.jp/articles/vim/commentout_source.html
+" lhs comments
+vmap ,# :s/^/#/<CR>:nohlsearch<CR>
+vmap ,/ :s/^/\/\//<CR>:nohlsearch<CR>
+vmap ,> :s/^/> /<CR>:nohlsearch<CR>
+vmap ," :s/^/\"/<CR>:nohlsearch<CR>
+vmap ,% :s/^/%/<CR>:nohlsearch<CR>
+vmap ,! :s/^/!/<CR>:nohlsearch<CR>
+vmap ,; :s/^/;/<CR>:nohlsearch<CR>
+vmap ,- :s/^/--/<CR>:nohlsearch<CR>
+vmap ,c :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR>:nohlsearch<CR>
+
+" wrapping comments
+vmap ,* :s/^\(.*\)$/\/\* \1 \*\//<CR>:nohlsearch<CR>
+vmap ,( :s/^\(.*\)$/\(\* \1 \*\)/<CR>:nohlsearch<CR>
+vmap ,< :s/^\(.*\)$/<!-- \1 -->/<CR>:nohlsearch<CR>
+vmap ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
+
+" block comments
+vmap ,b v`<I<CR><esc>k0i/*<ESC>`>j0i*/<CR><esc><ESC>
+vmap ,h v`<I<CR><esc>k0i<!--<ESC>`>j0i--><CR><esc><ESC>
+
 
 
