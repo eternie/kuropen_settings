@@ -76,15 +76,15 @@ kterm*|xterm*|)
 precmd() {
         echo -ne "\033]0;${USER}@${HOST%%.*}\007"
 }
-;;  
+;;
 esac
 
 alias ll='ls -l'
 if [ "${OS}" = "Windows_NT" ]; then
 #cygwin
-    export PATH="/usr/local/bin:/usr/local/sbin:$(echo $PATH | sed 's!/usr/local/bin:!!' | sed 's!/usr/local/sbin:!!')"
+    export PATH="/usr/local/bin:/usr/local/sbin:$HOME/bin:$(echo $PATH | sed 's!/usr/local/bin:!!' | sed 's!/usr/local/sbin:!!')"
 else
 #native UNIX
-    export PATH=/usr/local/bin:/usr/local/sbin:$(echo $PATH | sed 's!/usr/local/bin:!!' | sed 's!/usr/local/sbin:!!')
+    export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:$(echo $PATH | sed 's!/usr/local/bin:!!' | sed 's!/usr/local/sbin:!!')
 fi
 
