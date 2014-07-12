@@ -54,7 +54,13 @@ autoload -U colors; colors
 # 一般ユーザ時
 tmp_prompt="%{${fg[cyan]}%}%m[%~]%# %{${reset_color}%}"
 tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
+date | grep UTC > /dev/null
+if [ $? -eq 0 ]; then
+#UTC
+tmp_rprompt="%{${fg[green]}%}[UTC %T]%{${reset_color}%}"
+else
 tmp_rprompt="%{${fg[green]}%}[%T]%{${reset_color}%}"
+fi
 tmp_sprompt="%{${fg[yellow]}%}%r is correct? [Yes, No, Abort, Edit]:%{${reset_color}%}"
 
 # rootユーザ時(太字にし、アンダーバーをつける)
