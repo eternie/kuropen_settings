@@ -70,7 +70,9 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     filetype plugin indent off
     if has('vim_starting')
       set runtimepath+=~/.vim/bundle/neobundle.vim
-      call neobundle#rc(expand('~/.vim/bundle'))
+      call neobundle#begin(expand('~/.vim/bundle'))
+      NeoBundleFetch 'Shougo/neobundle.vim'
+      call neobundle#end()
     endif
 
     "管理モジュール一覧
