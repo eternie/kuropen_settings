@@ -93,6 +93,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundle 'tyru/open-browser.vim'
     NeoBundle 'mopp/backscratcher.git'
     NeoBundle 'mopp/tailCleaner.vim'
+    NeoBundle 'mopp/autodirmake.vim'
 
     "Filer設定
     let g:vimfiler_as_default_explorer = 1 "標準lsを使用しない
@@ -180,6 +181,8 @@ function CoffeeScriptEditInit()
 endfunction
 augroup filetypedetect
     au BufRead,BufNewFile *.coffee call CoffeeScriptEditInit()
+    "gradleのファイルタイプ識別用スクリプト
+    au BufRead,BufNewFile *.gradle set filetype=groovy
 augroup END
 
 " PHPStylist
