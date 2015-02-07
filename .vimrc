@@ -81,7 +81,7 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundle 'tpope/vim-surround'
     NeoBundle 'Shougo/vimfiler.git'
     NeoBundle 'Shougo/vimshell.git'
-    NeoBundle 'Shougo/vimproc.git'
+    "NeoBundle 'Shougo/vimproc.git'
     NeoBundle 'Shougo/unite.vim.git'
     NeoBundle 'Shougo/neocomplcache.git'
     NeoBundle 'tpope/vim-fugitive'
@@ -94,6 +94,9 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundle 'mopp/backscratcher.git'
     NeoBundle 'mopp/tailCleaner.vim'
     NeoBundle 'mopp/autodirmake.vim'
+    NeoBundle "godlygeek/tabular"
+    NeoBundle "joker1007/vim-markdown-quote-syntax"
+    NeoBundle "rcmdnk/vim-markdown"
 
     "Filer設定
     let g:vimfiler_as_default_explorer = 1 "標準lsを使用しない
@@ -196,6 +199,8 @@ if isdirectory(expand('~/.vim/phpStylist'))
     endfunction
     command! PhpStylist call <SID>PhpStylist()
 endif
+
+let g:vim_markdown_frontmatter=1
 
 " commentout.vim http://nanasi.jp/articles/vim/commentout_source.html
 " lhs comments
