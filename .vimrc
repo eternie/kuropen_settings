@@ -133,8 +133,6 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     let g:airline#extensions#tagbar#enabled = 1
     let g:airline#extensions#syntastic#enabled = 1
     let g:airline#extensions#branch#enabled = 1
-    let g:airline_linecolumn_prefix = '¶'
-    let g:airline_branch_prefix = '⎇ '
 
     "Tweetvim
     let g:tweetvim_tweet_per_page = 60
