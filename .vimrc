@@ -97,6 +97,11 @@ if isdirectory(expand('~/.vim/bundle/neobundle.vim'))
     NeoBundle "godlygeek/tabular"
     NeoBundle "joker1007/vim-markdown-quote-syntax"
     NeoBundle "rcmdnk/vim-markdown"
+    NeoBundle 'thinca/vim-quickrun'
+    NeoBundle 'mattn/webapi-vim'
+    NeoBundle 'tyru/open-browser.vim'
+    NeoBundle 'superbrothers/vim-quickrun-markdown-gfm'
+    NeoBundle 'kannokanno/previm'
 
     "Filer設定
     let g:vimfiler_as_default_explorer = 1 "標準lsを使用しない
@@ -222,5 +227,10 @@ vmap ,d :s/^\([/(]\*\\|<!--\) \(.*\) \(\*[/)]\\|-->\)$/\2/<CR>:nohlsearch<CR>
 vmap ,b v`<I<CR><esc>k0i/*<ESC>`>j0i*/<CR><esc><ESC>
 vmap ,h v`<I<CR><esc>k0i<!--<ESC>`>j0i--><CR><esc><ESC>
 
-
+let g:quickrun_config = {
+\   'markdown': {
+\     'type': 'markdown/gfm',
+\     'outputter': 'browser'
+\   }
+\ }
 
